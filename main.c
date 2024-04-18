@@ -5,6 +5,8 @@
 #define MAX_ALUNOS 100
 #define MAX_CHAR 50
 
+// Definindo a estrutura de dados para armazenar as informações dos alunos
+// definindo valores maximos para os campos de nome, numero e curso, mantendo a padronização e facilitando a leitura
 struct DadosNotas {
     char nome[MAX_CHAR];
     char num[MAX_CHAR];
@@ -12,6 +14,7 @@ struct DadosNotas {
     float nota1;
     float nota2;
     char situacao[MAX_CHAR]; // Adicionado campo para armazenar a situação (APROVADO ou REPROVADO)
+    float notafinal;
 };
 
 void lendoArquivo(char* arquivo_notas, struct DadosNotas *alunos, int *num_alunos) {
@@ -44,6 +47,8 @@ void DefineSituacao(struct DadosNotas *alunos, int num_alunos) {
         }
     }
 }
+// Função para guardar a situação dos alunos em um arquivo
+// O arquivo é criado na pasta onde o programa está sendo executado
 
 void GuardarSituacao(struct DadosNotas *alunos, int num_alunos) {
     FILE *arquivo;
@@ -53,11 +58,14 @@ void GuardarSituacao(struct DadosNotas *alunos, int num_alunos) {
         exit(1);
     }
     for (int i = 0; i < num_alunos; i++) {
-        fprintf(arquivo, "%s,%.2f,%.2f,%s\n", alunos[i].nome, (alunos[i].nota1 + alunos[i].nota2) / 2, alunos[i].situacao);
+        float notafinal = (alunos[i].nota1 + alunos[i].nota2)/2;
+        fprintf(arquivo, "%s,%.2f,%s\n", alunos[i].nome, notafinal, alunos[i].situacao);
     }
     fclose(arquivo);
 }
 
+// estanciando a função main
+// Função principal do programa
 int main() {
     struct DadosNotas alunos[MAX_ALUNOS];
     int num_alunos = 0;
