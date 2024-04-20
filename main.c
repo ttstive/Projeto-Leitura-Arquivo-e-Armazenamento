@@ -17,10 +17,10 @@ struct DadosNotas {
     float notafinal;
 };
 
-void lendoArquivo(char* arquivo_notas, struct DadosNotas *alunos, int *num_alunos) {
+void lendoArquivo(struct DadosNotas *alunos, int *num_alunos) {
     FILE *arquivo;
     char linha[100];
-    arquivo = fopen("/home/estevaolins/Documentos/Trabalho em C/DadosNotas.csv", "r");
+    arquivo = fopen("DadosNotas.csv", "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo\n");
         exit(1);
@@ -52,7 +52,7 @@ void DefineSituacao(struct DadosNotas *alunos, int num_alunos) {
 
 void GuardarSituacao(struct DadosNotas *alunos, int num_alunos) {
     FILE *arquivo;
-    arquivo = fopen("/home/estevaolins/Documentos/Trabalho em C/SituacaoAluno.csv", "w");
+    arquivo = fopen("SituacaoAluno.csv", "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo\n");
         exit(1);
@@ -70,7 +70,7 @@ int main() {
     struct DadosNotas alunos[MAX_ALUNOS];
     int num_alunos = 0;
     
-    lendoArquivo("DadosNotas.csv", alunos, &num_alunos);
+    lendoArquivo(alunos, &num_alunos);
     DefineSituacao(alunos, num_alunos);
     GuardarSituacao(alunos, num_alunos);
     
